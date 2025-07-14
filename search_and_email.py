@@ -79,7 +79,6 @@
 #     main()
 
 
-
 import os
 import smtplib
 import requests
@@ -180,4 +179,5 @@ def main():
 
     print("✅ Email sent!")
 
-if __name__
+if __name__ == "__main__":
+    main()
