@@ -1,0 +1,25 @@
+name: Daily Job Search
+ 
+on:
+  schedule:
+    - cron: '0 12 * * *' # At 12:00 UTC daily (~5:30 PM IST)
+  workflow_dispatch: {}
+ 
+jobs:
+  search_and_alert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run script
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+        run: python search_and_email.py
+ 
